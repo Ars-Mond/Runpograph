@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Runpograph.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:core="clr-namespace:Core;assembly=Core"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Runpograph.Views.MainWindow"
+        Icon="/Assets/logo.ico"
+        Title="Runpograph"
+        
+        WindowStartupLocation="CenterScreen"
+        >
+
+    <Design.DataContext>
+        <!-- <vm:MainWindowViewModel/> -->
+        <core:MainViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="{Binding FilePath}"/>
+        <Canvas></Canvas>
+        
+        <ListBox Grid.Row="1" 
+                 Items="{ Binding DirectoriesAndFiles }"
+                 SelectedItem="{ Binding SelectedFileSystemEntity }">
+            
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="DoubleTapped">
+                    <InvokeCommandAction Command="{ Binding OpenCommand }"
+                                         CommandParameter="{ Binding SelectedFileSystemEntity }">
+                    </InvokeCommandAction>
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{ Binding Name }"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+
+</Window>
