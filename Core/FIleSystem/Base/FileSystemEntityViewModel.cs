@@ -8,5 +8,11 @@ public abstract class FileSystemEntityViewModel : BaseViewModel
     protected FileSystemEntityViewModel(string name)
     {
         Name = name;
+        FullName = String.Empty;
+    }
+    protected FileSystemEntityViewModel(string name, string fullName)
+    {
+        Name = name;
+        FullName = fullName;
     }
 }

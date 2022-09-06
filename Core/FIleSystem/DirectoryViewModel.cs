@@ -3,13 +3,13 @@
 public sealed class DirectoryViewModel : FileSystemEntityViewModel
 {
 
-    public DirectoryViewModel(string directoryName) : base(directoryName)
+    public DirectoryViewModel(string directoryName) : base(directoryName, directoryName)
     {
-        FullName = Name;
+        
     }
 
-    public DirectoryViewModel(DirectoryInfo directoryName) : base(directoryName.FullName)
+    public DirectoryViewModel(DirectoryInfo directoryName) : base(directoryName.Name, directoryName.FullName)
     {
-        FullName = directoryName.FullName;
+        
     }
 }

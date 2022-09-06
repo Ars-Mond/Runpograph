@@ -6,7 +6,7 @@ public sealed class FileViewModel : FileSystemEntityViewModel
     {
     }
 
-    public FileViewModel(FileInfo file) : base(file.Name)
+    public FileViewModel(FileInfo file) : base(file.Name, file.FullName)
     {
         
     }
