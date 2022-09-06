@@ -40,7 +40,12 @@ namespace Core
                     DirectoriesAndFiles.Add(new DirectoryViewModel(logicalDrive));
                 }
 
-                FilePath = Environment.SystemDirectory;
+                if (OpenCommand is DelegateCommand delegateCommand)
+                {
+                    delegateCommand.NullExecute += () => Debug.WriteLine("Action");
+                }
+
+                FilePath = String.Empty; //Environment.SystemDirectory
             }
 
         #endregion
@@ -51,9 +56,11 @@ namespace Core
             {
                 Console.Out.Write(parameter.GetType().ToString());
                 Debug.WriteLine(parameter.GetType().ToString());
-                
-                if (parameter is DirectoryViewModel directoryViewModel)
+
+                try
                 {
+                    if (parameter is not DirectoryViewModel directoryViewModel) return;
+                    
                     FilePath = directoryViewModel.Name;
                     DirectoriesAndFiles.Clear();
                     var directoryInfo = new DirectoryInfo(FilePath);
@@ -65,6 +72,11 @@ namespace Core
                     {
                         DirectoriesAndFiles.Add(new FileViewModel(file));
                     }
+                }
+                catch (Exception exception)
+                {
+                    Debug.WriteLine(exception);
+                    //throw;
                 }
             }
 
